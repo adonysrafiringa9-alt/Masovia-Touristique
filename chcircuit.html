@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation de Chargement avec Redirection</title>
+    <style>
+                            :root {
+  --majh-primary: #009688;
+  --majh-dark: #1e293b;
+  --majh-muted: #475569;
+  --majh-light-bg: #f8fafc;
+}
+:root {
+    --primary: #f9844a; 
+    --primary-hover: #e06d32;
+    --secondary: #0077b6; 
+    --accent: #00b4d8; 
+    --bg-light: #f8f9fa;
+    --text-dark: #1d2d44;
+    --text-muted: #6c757d;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--secondary);
+            color: #ffffff;
+        }
+
+        .loader-card {
+            padding: 40px 32px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 320px;
+            text-align: center;
+        }
+
+        .progress-box {
+            position: relative;
+            width: 130px;
+            height: 130px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg);
+        }
+
+        .ring-bg {
+            stroke: #222f43;
+            stroke-width: 8;
+            fill: transparent;
+        }
+
+        .ring-fill {
+            stroke:var(--primary);
+            stroke-width: 8;
+            stroke-linecap: round;
+            fill: transparent;
+            stroke-dasharray: 339.29;
+            stroke-dashoffset: 339.29;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        .percentage {
+            position: absolute;
+            font-size: 26px;
+            font-weight: 700;
+            color: #ffffff;
+            letter-spacing: -0.5px;
+        }
+
+        .status {
+            font-size: 15px;
+            color:var(--bg-light);
+            transition: color 0.3s ease;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes pulse {
+            0%{transform: scale(1);}
+            50%{transform: scale(1.1);}
+            100%{transform: scale(1);}
+        }
+
+        .complete .status {
+            color: #00d2ff;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="loader-card" id="card">
+        <div class="progress-box">
+            <svg class="progress-ring" width="130" height="130">
+                <circle class="ring-bg" cx="65" cy="65" r="54" />
+                <circle class="ring-fill" id="ringFill" cx="65" cy="65" r="54" />
+            </svg>
+            <div class="percentage" id="percentageText">0%</div>
+        </div>
+
+        <div class="status" id="statusText">Direction vers circuit...</div>
+    </div>
+
+    <script>
+        const TARGET_URL = "./circuit.html";
+
+        const ringFill = document.getElementById('ringFill');
+        const percentageText = document.getElementById('percentageText');
+        const statusText = document.getElementById('statusText');
+        const card = document.getElementById('card');
+
+        const radius = ringFill.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius; 
+
+        let progress = 0;
+
+        function updateProgress(value) {
+            const offset = circumference - (value / 100) * circumference;
+            ringFill.style.strokeDashoffset = offset;
+            percentageText.textContent = `${value}%`;
+        }
+
+        // Réinitialisation explicite lors du chargement de la page
+        window.addEventListener('DOMContentLoaded', () => {
+            progress = 0;
+            updateProgress(0);
+            
+            const timer = setInterval(() => {
+                progress += 1;
+                updateProgress(progress);
+
+                if (progress >= 100) {
+                    clearInterval(timer);
+                    card.classList.add('complete');
+                    statusText.textContent = "Direction...";
+                    window.location.href = TARGET_URL;
+                }
+            }, 15);
+        });
+    </script>
+
+</body>
+</html>

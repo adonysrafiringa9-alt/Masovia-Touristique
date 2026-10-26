@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Animation de Chargement & Bouton</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: var(--accent); /* Fond très sombre moderne */
+              color: #ffffff;
+             }
+        
+
+        /* Carte principale */
+        .loader-card {
+            
+            padding: 40px 32px;
+           
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 320px;
+            text-align: center;
+            
+        }
+
+        /* Conteneur de l'anneau SVG */
+        .progress-box {
+            position: relative;
+            width: 230px;
+            height: 230px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 24px;
+        }
+
+        .progress-ring {
+            transform: rotate(-90deg); /* L'animation commence en haut */
+        }
+
+        /* Cercle de fond gris */
+        .ring-bg {
+            stroke:var(--bg-light);
+            stroke-width: 8;
+            fill: transparent;
+        }
+                    :root {
+  --majh-primary: #009688;
+  --majh-dark: #1e293b;
+  --majh-muted: #475569;
+  --majh-light-bg: #f8fafc;
+}
+:root {
+    --primary: #f9844a; 
+    --primary-hover: #e06d32;
+    --secondary: #0077b6; 
+    --accent: #00b4d8; 
+    --bg-light: #f8f9fa;
+    --text-dark: #1d2d44;
+    --text-muted: #6c757d;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+
+        /* Cercle animé bleu */
+        .ring-fill {
+            stroke:var(--primary); /* Couleur néon / cyan brillante */
+            stroke-width: 8;
+            stroke-linecap: round;
+            fill: transparent;
+            /* Rayon = 54 => Périmètre = 2 * PI * 54 = 339.29 */
+            stroke-dasharray: 339.29;
+            stroke-dashoffset: 339.29;
+            transition: stroke-dashoffset 0.1s linear;
+        }
+
+        /* Pourcentage au centre */
+        .percentage {
+            position: absolute;
+            font-size: 26px;
+            font-weight: 700;
+            color:var(--bg-light);
+            letter-spacing: -0.5px;
+        }
+
+        /* Texte de statut */
+        .status {
+            font-size: 15px;
+            color: var(--secondary);
+            margin-bottom: 24px;
+            transition: color 0.3s ease;
+        }
+
+        /* Bouton "Visiter" avec transition fluide */
+        .btn-visit {
+            width: 100%;
+            background:var(--primary);
+            color:var(--bg-light);
+            border: none;
+            width: 12rem;
+            padding: 1.5rem 2%;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 30px;
+            cursor: pointer;
+            box-shadow: 0 8px 20px rgba(0, 210, 255, 0.3);
+            animation: pulse 1.5s infinite;
+            /* Caché initialement */
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(15px) scale(0.95);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes pulse{
+            0%{transform: scale(1);}
+            50%{transform: scale(1.1);}
+            100%{transform: scale(1);}
+        }
+
+        .btn-visit:hover {
+            transform: translateY(-2px) scale(1.02);
+            box-shadow: 0 12px 25px rgba(0, 210, 255, 0.4);
+        }
+
+        .btn-visit:active {
+            transform: translateY(0) scale(0.98);
+        }
+
+        /* État déclenché par JavaScript une fois à 100% */
+        .show-btn {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+
+        .complete .status {
+            color: var(--secondary);
+            font-weight: 600;
+             animation: pulse 1.5s infinite;
+        }
+        
+    </style>
+</head>
+<body>
+    
+
+    <div class="loader-card" id="card">
+        <!-- Anneau SVG -->
+        <div class="progress-box">
+            <svg class="progress-ring" width="130" height="130">
+                <circle class="ring-bg" cx="65" cy="65" r="54" />
+                <circle class="ring-fill" id="ringFill" cx="65" cy="65" r="54" />
+            </svg>
+            <div class="percentage" id="percentageText">0%</div>
+        </div>
+
+        <!-- Texte -->
+        <div class="status" id="statusText">Chargement...</div>
+
+        <!-- Bouton Visiter -->
+       
+    </div>
+
+    <script>
+        const ringFill = document.getElementById('ringFill');
+        const percentageText = document.getElementById('percentageText');
+        const statusText = document.getElementById('statusText');
+        const visitBtn = document.getElementById('visitBtn');
+        const card = document.getElementById('card');
+        const DOCTYPE = document.getElementById('visitBtn')
+
+        // Périmètre exact du cercle (2 * PI * 54)
+        const radius = ringFill.r.baseVal.value;
+        const circumference = 2 * Math.PI * radius; 
+
+        let progress = 0;
+
+        // Fonction de mise à jour du tracé SVG
+        function updateProgress(value) {
+            const offset = circumference - (value / 100) * circumference;
+            ringFill.style.strokeDashoffset = offset;
+            percentageText.textContent = `${value}%`;
+        }
+
+
+        // Animation du compteur
+        const timer = setInterval(() => {
+            progress += 1;
+            updateProgress(progress);
+
+            if (progress >= 100) {
+                clearInterval(timer);
+                
+                // Changement d'état de la carte
+                card.classList.add('complete');
+                statusText.textContent = "Prêt !";
+                
+                
+                // Apparition du bouton avec l'effet rebond
+                visitBtn.classList.add('show-btn');
+            }
+        }, 60); // Vitesse du chargement (~2,5 secondes)
+
+        function visiterPage() {
+            window.location.href = "file://index.html"; // Remplacez par votre lien
+        }
+          
+    </script>
+
+</body>
+</html>

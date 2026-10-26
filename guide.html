@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nos Guides Touristiques</title>
+  
+  <!-- Icônes FontAwesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Polices Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --majh-primary: #009688;
+      --primary: #f9844a; 
+      --primary-hover: #e06d32;
+      --secondary: #0077b6; 
+      --accent: #00b4d8; 
+      --bg-dark: #08090b;
+      --text-dark: #1d2d44;
+      --text-muted: #6c757d;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+    }
+
+    body {
+      background-color: #f4f5f9;
+      color: #333;
+      position: relative;
+    }
+
+    /* Barre de Navigation */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1rem 5%;
+      background-color: rgba(16, 18, 22, 0.75);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+      position: sticky;
+      top: 0;
+      z-index: 900;
+    }
+
+    .logo {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo a {
+      color: #fff;
+      font-size: 1.2rem;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+
+    .logo a:hover {
+      color: var(--primary);
+    }
+
+    .logo span {
+      color: var(--primary);
+    }
+
+    .btn {
+      padding: 0.65rem 1.4rem;
+      border-radius: 50px;
+      border: none;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary-nav {
+      background-color: var(--primary);
+      color: var(--white);
+    }
+
+    .btn-primary-nav:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+    }
+
+    /* En-tête */
+    .header {
+      background-color: var(--primary-hover);
+      color: white;
+      text-align: center;
+      padding: 60px 20px 80px 20px;
+    }
+
+    .header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    /* Conteneur de la grille */
+    .container {
+      max-width: 1100px;
+      margin: -40px auto 50px auto;
+      padding: 0 20px;
+    }
+
+    .guides-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 25px;
+    }
+
+    /* Carte de profil */
+    .card {
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .card img {
+      width: 100%;
+      height: 280px;
+      object-fit: cover;
+    }
+
+    .card-info {
+      padding: 20px 15px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .card-info h3 {
+      font-size: 1.1rem;
+      color: #222;
+      margin-bottom: 5px;
+    }
+
+    .card-info p {
+      font-size: 0.85rem;
+      color: #777;
+    }
+
+    /* Système d'étoiles */
+    .rating-container {
+      margin: 8px 0;
+      font-size: 0.9rem;
+      color: #ffb400;
+    }
+
+    .rating-count {
+      color: #666;
+      font-size: 0.8rem;
+      margin-left: 5px;
+    }
+
+    /* Bouton d'action sur la carte */
+    .btn-detail {
+      display: inline-block;
+      margin-top: 10px;
+      padding: 8px 16px;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+      border-radius: 20px;
+      font-weight: 600;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .btn-detail:hover {
+      background-color: var(--primary-hover);
+    }
+
+    /* =========================================================
+       FENÊTRE MODALE & FORMULAIRE DE CONTACT
+    ========================================================= */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.65);
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      padding: 20px;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .contact-card {
+      position: relative;
+      width: 850px;
+      max-width: 100%;
+      background-color: #ffffff;
+      border-radius: 16px;
+      box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+      display: flex;
+      overflow: hidden;
+      min-height: 480px;
+      animation: popup 0.3s ease;
+    }
+
+    @keyframes popup {
+      from { transform: scale(0.9); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 15px;
+      right: 20px;
+      font-size: 1.8rem;
+      cursor: pointer;
+      color: #888;
+      z-index: 10;
+      transition: color 0.2s;
+    }
+
+    .close-btn:hover {
+      color: #1a1a1a;
+    }
+
+    /* Section Formulaire (Gauche) */
+    .form-section {
+      flex: 1.2;
+      padding: 40px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .logo-icon {
+      font-size: 24px;
+      color: var(--primary);
+      margin-bottom: 15px;
+    }
+
+    .form-section h2 {
+      font-size: 24px;
+      color: #1a1a1a;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .subtitle {
+      font-size: 12px;
+      color: #666;
+      line-height: 1.5;
+      margin-bottom: 25px;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 22px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 8px 0;
+      font-size: 14px;
+      color: #1a1a1a;
+      border: none;
+      border-bottom: 1px solid #ddd;
+      outline: none;
+      background: transparent;
+      transition: border-color 0.3s;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 8px;
+      left: 0;
+      font-size: 13px;
+      color: #888;
+      pointer-events: none;
+      transition: 0.3s ease all;
+    }
+
+    .input-group input:focus ~ label,
+    .input-group input:not(:placeholder-shown) ~ label {
+      top: -15px;
+      font-size: 11px;
+      color: #e59800;
+      font-weight: 600;
+    }
+
+    .input-group input:focus {
+      border-bottom-color: #e59800;
+    }
+
+    .submit-btn {
+      background-color: #1a1a1a;
+      color: #ffffff;
+      border: none;
+      padding: 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+
+    .submit-btn:hover {
+      background-color: #333333;
+      transform: translateY(-2px);
+    }
+
+    /* Section Infos du Guide (Droite) */
+    .info-section {
+      flex: 1;
+      position: relative;
+      background-color: #ffffff;
+    }
+
+    .orange-block {
+      position: absolute;
+      right: 0;
+      top: 0;
+      width: 80%;
+      height: 100%;
+      background-color: #e59800;
+    }
+
+    .info-card {
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 90%;
+      background-color: #2b2b2b;
+      border-radius: 12px 0 0 12px;
+      padding: 30px 25px;
+      color: #ffffff;
+      box-shadow: -5px 10px 25px rgba(0, 0, 0, 0.15);
+    }
+
+    .dot-orange {
+      position: absolute;
+      bottom: -10px;
+      left: -10px;
+      width: 24px;
+      height: 24px;
+      background-color: #e59800;
+      border-radius: 50%;
+    }
+
+    .guide-header-info {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 15px;
+    }
+
+    .modal-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #e59800;
+    }
+
+    .guide-header-info h3 {
+      font-size: 16px;
+      color: #ffffff;
+      margin-bottom: 2px;
+    }
+
+    .modal-role {
+      font-size: 11px;
+      color: #e59800;
+      font-weight: 500;
+    }
+
+    .modal-bio {
+      font-size: 11px;
+      color: #ccc;
+      line-height: 1.4;
+      margin-bottom: 20px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 12px;
+      font-size: 12px;
+      color: #f1f1f1;
+    }
+
+    .info-item i {
+      color: #e59800;
+      font-size: 14px;
+      width: 25px;
+    }
+
+    /* Adaptation Mobile */
+    @media (max-width: 768px) {
+      .contact-card {
+        flex-direction: column;
+        max-height: 90vh;
+        overflow-y: auto;
+      }
+      .orange-block {
+        display: none;
+      }
+      .info-section {
+        order: -1;
+      }
+      .info-card {
+        position: relative;
+        transform: none;
+        width: 100%;
+        border-radius: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <header class="navbar">
+    <div class="logo">
+      <a href="index.html"><i class="fa-solid fa-house"></i></a>
+      <span>Mahajanga</span>Tourisme
+    </div>
+    <div class="nav-cta">
+      <a href="chindex.html" class="btn btn-primary-nav">Retour</a>
+    </div>
+  </header>
+
+  <!-- Section En-tête -->
+  <div class="header">
+    <h1>Rencontrez Nos Guides Touristiques</h1>
+    <p>Des experts passionnés pour vous accompagner dans vos aventures</p>
+  </div>
+
+  <!-- Conteneur des cartes de guides -->
+  <div class="container">
+    <div class="guides-grid" id="guidesGrid"></div>
+  </div>
+
+  <!-- Fenêtre Modale (Formulaire de contact dynamique) -->
+  <div class="modal-overlay" id="profileModal">
+    <div class="contact-card">
+      <span class="close-btn" onclick="closeModal()">&times;</span>
+      
+      <!-- Section Formulaire (Gauche) -->
+      <div class="form-section">
+        <div class="logo-icon">
+          <i class="fa-solid fa-compass"></i>
+        </div>
+        <h2>Réserver une visite</h2>
+        <p class="subtitle">N'hésitez pas à poser vos questions sur le circuit. Votre guide vous répondra dans les plus brefs délais.</p>
+
+        <form id="contactForm">
+          <div class="input-group">
+            <input type="text" id="name" required placeholder=" ">
+            <label for="name">Votre Nom & Prénom</label>
+          </div>
+
+          <div class="input-group">
+            <input type="email" id="email" required placeholder=" ">
+            <label for="email">Adresse e-mail</label>
+          </div>
+
+          <div class="input-group">
+            <input type="text" id="message" required placeholder=" ">
+            <label for="message">Votre message / Date de visite</label>
+          </div>
+
+          <button type="submit" class="submit-btn">Envoyer la demande</button>
+        </form>
+      </div>
+
+      <!-- Section Informations du Guide (Droite) -->
+      <div class="info-section">
+        <div class="orange-block"></div>
+        <div class="info-card">
+          <div class="dot-orange"></div>
+          
+          <div class="guide-header-info">
+            <img src="" id="modalImg" class="modal-img" alt="Photo du guide">
+            <div>
+              <h3 id="modalName"></h3>
+              <p id="modalRole" class="modal-role"></p>
+            </div>
+          </div>
+
+          <p id="modalBio" class="modal-bio"></p>
+
+          <div id="modalRating" class="rating-container" style="margin-bottom: 15px;"></div>
+
+          <div class="info-item">
+            <i class="fa-regular fa-envelope"></i>
+            <span id="modalEmail"></span>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-solid fa-phone"></i>
+            <span id="modalPhone"></span>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-solid fa-location-dot"></i>
+            <span>Point de rendez-vous : Mahajanga</span>
+          </div>
+
+          <div class="info-item">
+            <i class="fa-regular fa-clock"></i>
+            <span>Disponibilité : 08h00 - 17h00</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Liste des guides avec leurs informations
+    const guides = [
+      {
+        id: 1,
+        name: "FENOSOA Léa",
+        role: "Spécialiste Visites Historiques",
+        rating: 4.9,
+        reviews: 128,
+        image: "gd4.png",
+        email: "lea.fenosoa@mahajanga-tourisme.mg",
+        phone: "+261 34 12 345 67",
+        bio: "Léa possède plus de 8 ans d'expérience dans le guidage à travers les monuments historiques et le patrimoine culturel."
+      },
+      {
+        id: 2,
+        name: "RAKOTOSON Paul",
+        role: "Expert Randonnées & Nature",
+        rating: 4.8,
+        reviews: 95,
+        image: "gd2.png",
+        email: "paul.rakotoson@mahajanga-tourisme.mg",
+        phone: "+261 32 98 765 43",
+        bio: "Passionné par la faune et la flore, Paul vous emmène explorer les parcs nationaux et les sentiers sauvages en toute sécurité."
+      },
+      {
+        id: 3,
+        name: "Michael Johnson",
+        role: "Guide Gastronomique",
+        rating: 5.0,
+        reviews: 210,
+        image: "gd1.png",
+        email: "michael.j@mahajanga-tourisme.mg",
+        phone: "+261 33 45 678 90",
+        bio: "Passionné de culture locale, Michael vous fera découvrir les meilleurs marchés et traditions culinaires de la région."
+      },
+      {
+        id: 4,
+        name: "LEMENA Claude",
+        role: "Guide Culturel & Musées",
+        rating: 4.7,
+        reviews: 84,
+        image: "gd3.png",
+        bio: "Diplômée en Histoire, Claude partage des anecdotes fascinantes sur l'architecture et l'histoire locale."
+      }
+    ];
+
+    // Génération des étoiles
+    function generateStarsHTML(rating, reviews) {
+      const fullStars = Math.floor(rating);
+      const hasHalfStar = rating % 1 >= 0.5;
+      let starsHTML = '';
+
+      for (let i = 0; i < fullStars; i++) { starsHTML += '★'; }
+      if (hasHalfStar && fullStars < 5) { starsHTML += '½'; }
+      const emptyStars = 5 - Math.ceil(rating);
+      for (let i = 0; i < emptyStars; i++) { starsHTML += '☆'; }
+
+      return `<span>${starsHTML}</span> <strong>${rating}</strong> <span class="rating-count">(${reviews} avis)</span>`;
+    }
+
+    // Affichage des cartes
+    const grid = document.getElementById('guidesGrid');
+
+    guides.forEach(guide => {
+      const card = document.createElement('div');
+      card.className = 'card';
+
+      card.innerHTML = `
+        <img src="${guide.image}" alt="${guide.name}">
+        <div class="card-info">
+          <div>
+            <h3>${guide.name}</h3>
+            <p>${guide.role}</p>
+            <div class="rating-container">
+              ${generateStarsHTML(guide.rating, guide.reviews)}
+            </div>
+          </div>
+          <button class="btn-detail" onclick="openModal(${guide.id})">Contacter / Réserver</button>
+        </div>
+      `;
+
+      grid.appendChild(card);
+    });
+
+    let selectedGuide = null;
+
+    // Ouverture du formulaire pré-rempli avec le guide sélectionné
+    function openModal(guideId) {
+      selectedGuide = guides.find(g => g.id === guideId);
+
+      document.getElementById('modalImg').src = selectedGuide.image;
+      document.getElementById('modalName').innerText = selectedGuide.name;
+      document.getElementById('modalRole').innerText = selectedGuide.role;
+      document.getElementById('modalBio').innerText = selectedGuide.bio;
+      document.getElementById('modalRating').innerHTML = generateStarsHTML(selectedGuide.rating, selectedGuide.reviews);
+      document.getElementById('modalEmail').innerText = selectedGuide.email || 'contact@mahajanga-tourisme.mg';
+      document.getElementById('modalPhone').innerText = selectedGuide.phone || '+261 34 00 000 00';
+
+      document.getElementById('profileModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('profileModal').classList.remove('active');
+    }
+
+    // Traitement du formulaire au clic sur Envoyer
+    document.getElementById('contactForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const message = document.getElementById('message').value;
+
+      if (name && email && message) {
+        alert(`Merci ${name} ! Votre demande a été envoyée directement à ${selectedGuide.name}.`);
+        document.getElementById('contactForm').reset();
+        closeModal();
+      } else {
+        alert('Veuillez remplir tous les champs du formulaire.');
+      }
+    });
+
+    // Fermeture lors du clic à l'extérieur
+    window.onclick = function(event) {
+      const modal = document.getElementById('profileModal');
+      if (event.target === modal) {
+        closeModal();
+      }
+    };
+  </script>
+</body>
+</html>

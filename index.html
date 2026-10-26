@@ -1,0 +1,982 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mahajanga Tourisme | La Cité des Fleurs</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Poppins:wght@600;700;800&display=swap" rel="stylesheet">
+    <!-- Icones FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<style>
+    /* --- REINITIALISATION ET VARIABLES --- */
+    :root {
+      --majh-primary: #009688;
+      --majh-dark: #1e293b;
+      --majh-muted: #475569;
+      --majh-light-bg: #f8fafc;
+      --primary: #f9844a; 
+      --primary-hover: #e06d32;
+      --secondary: #0077b6; 
+      --accent: #00b4d8; 
+      --bg-light: #f8f9fa;
+      --text-dark: #1d2d44;
+      --text-muted: #6c757d;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    html { 
+        -webkit-text-size-adjust: 100%; 
+        margin-top: 0px;
+    }
+
+    body {
+        font-family: 'Inter', sans-serif;
+        background-color: var(--white);
+        color: var(--text-dark);
+        line-height: 1.6;
+        padding: 0;
+    }
+
+    header {
+        margin-top: 0;
+        padding: 0;
+    }
+
+    h1, h2, h3 {
+        font-family: 'Poppins', sans-serif;
+    }
+
+    /* --- BARRE DE NAVIGATION --- */
+    .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.2rem 5%;
+        background-color: rgba(15, 23, 42, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+        gap: 20px;
+        width: 100%;
+    }
+
+    .logo {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: var(--secondary);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+    
+    .logo span {
+        color: orangered;
+    }
+
+    .logo .fa-house {
+        color: var(--white);
+        font-size: 22px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+    }
+
+    .nav-links a {
+        text-decoration: none;
+        color: var(--white);
+        margin: 2px;
+        font-weight: 500;
+        font-family: 'Poppins', sans-serif;
+        padding: 10px;
+        font-size: 14px;
+        transition: all 0.3s ease;
+    }
+
+    .nav-links a:hover, 
+    .nav-links a.active {
+        background-color: var(--majh-primary);
+        color: white;
+        border-radius: 50px;
+        font-weight: 500;
+        cursor: pointer;
+    }
+
+    /* --- BOUTONS --- */
+    .btn {
+        padding: 0.75rem 1.5rem;
+        border-radius: 50px;
+        border: none;
+        font-weight: 600;
+        cursor: pointer;
+        text-decoration: none;
+        display: inline-block;
+        transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+        background-color: var(--primary-hover);
+        color: white;
+    }
+    
+    .btn-primary:hover {
+        background-color: orange;
+        transform: translateY(-2px);
+    }
+
+    /* --- HERO SECTION --- */
+    .hero {
+        position: relative;
+        height: 80vh;
+        background: url('image/hdp.jpg') center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero-overlay {
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+    }
+
+    .hero-content {
+        position: relative;
+        z-index: 2;
+        max-width: 850px;
+        color: var(--white);
+        padding: 0 20px;
+    }
+
+    .hero-content h1 {
+        font-size: 3.2rem;
+        font-weight: 800;
+        margin-bottom: 1rem;
+        text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+    }
+
+    .hero-content h1 span {
+        color: #ffdda1;
+    }
+
+    .hero-content p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        text-shadow: 0 2px 5px rgba(0,0,0,0.3);
+    }
+
+    /* Barre de recherche Glassmorphism */
+    .search-box {
+        background: rgba(255, 255, 255, 0.25);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        padding: 10px;
+        border-radius: 50px;
+        display: flex;
+        gap: 10px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .search-input {
+        background: var(--white);
+        border-radius: 30px;
+        padding: 0.8rem 1.2rem;
+        display: flex;
+        align-items: center;
+        flex: 1;
+    }
+
+    .search-input i {
+        color: var(--primary);
+        margin-right: 10px;
+    }
+
+    .search-input input {
+        border: none;
+        outline: none;
+        width: 100%;
+        font-size: 0.95rem;
+        background: transparent;
+    }
+
+    .btn-search {
+        background: var(--primary);
+        color: var(--white);
+        border-radius: 30px;
+        padding: 0.8rem 1.8rem;
+    }
+
+    .btn-search:hover {
+        background: var(--primary-hover);
+    }
+
+    /* --- SECTION CONTENEUR --- */
+    .container {
+        max-width: 1200px;
+        margin: 5rem auto;
+        padding: 0 20px;
+    }
+
+    .section-title {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+
+    .section-title h2 {
+        font-size: 2.2rem;
+        color: var(--secondary);
+    }
+
+    .section-title p {
+        color: var(--text-muted);
+    }
+
+    /* --- GRILLE DE CARTES --- */
+    .cards-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+    }
+
+    .card {
+        background: var(--white);
+        border-radius: var(--radius);
+        overflow: hidden;
+        box-shadow: var(--shadow);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.12);
+    }
+
+    .card-img {
+        height: 220px;
+        background-size: cover;
+        background-position: center;
+        position: relative;
+    }
+
+    .badge {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        background: var(--white);
+        color: var(--primary);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        font-size: 1.1rem;
+    }
+
+    .card-body {
+        padding: 1.5rem;
+    }
+
+    .card-body h3 {
+        margin-bottom: 0.5rem;
+        font-size: 1.3rem;
+    }
+
+    .card-body p {
+        color: var(--text-muted);
+        font-size: 0.95rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .btn-card {
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        transition: gap 0.2s;
+    }
+
+    .btn-card:hover {
+        gap: 12px;
+    }
+
+    /* --- FOOTER --- */
+    footer {
+        text-align: center;
+        padding: 2rem;
+        background: rgb(34, 134, 151);
+        color: var(--white);
+        margin-top: 4rem;
+    }
+
+    .voirplus {
+        width: 65px;
+        height: 65px;
+        border-radius: 50%;
+        overflow: hidden;
+        display: flex;
+        justify-content: center;
+        margin: 30px auto;
+        align-items: center;
+        background-color: var(--text-dark);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .voirplus:hover {
+        background-color: orangered;
+        cursor: pointer;
+    }
+
+    .voirplus a {
+        text-decoration: none;
+        font-family: 'Poppins', sans-serif;
+        color: white;
+        font-size: 13px;
+    }
+
+    /* --- FAQ --- */
+    .faq-container {
+        margin: 40px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 12px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+        max-width: 1000px;
+    }
+
+    .faq-container h2 {
+        text-align: center;
+        color: #1e1e2f;
+        margin-bottom: 24px;
+        font-size: 1.8rem;
+    }
+
+    .faq-item {
+        background-color: #f8f9fa;
+        border: 1px solid #e0e0e0;
+        border-radius: 8px;
+        margin-bottom: 12px;
+        overflow: hidden;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .faq-item[open] {
+        background-color: #ffffff;
+        border-color: #ff6b6b;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    summary {
+        padding: 16px 20px;
+        font-weight: 600;
+        color: #2c3e50;
+        cursor: pointer;
+        list-style: none;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    summary::-webkit-details-marker {
+        display: none;
+    }
+
+    summary::after {
+        content: "＋";
+        font-size: 1.2rem;
+        color: #ff6b6b;
+        transition: transform 0.3s ease;
+    }
+
+    .faq-item[open] summary::after {
+        content: "－";
+    }
+
+    .faq-content {
+        padding: 0 20px 16px 20px;
+        color: #555;
+        line-height: 1.6;
+    }
+
+    .faq-content ul {
+        padding-left: 20px;
+        margin-top: 8px;
+    }
+
+    .faq-content li {
+        margin-bottom: 4px;
+    }
+
+    /* --- À PROPOS --- */
+    .about-mahajanga {
+        background-color: var(--majh-light-bg);
+        padding: 80px 20px;
+        color: var(--majh-dark);
+        font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+        line-height: 1.7;
+    }
+
+    .about-container {
+        max-width: 1140px;
+        margin: 0 auto;
+    }
+
+    .about-header {
+        text-align: center;
+        max-width: 800px;
+        margin: 0 auto 50px auto;
+    }
+
+    .about-badge {
+        display: inline-block;
+        background-color: rgba(0, 150, 136, 0.12);
+        color: var(--majh-primary);
+        font-weight: 700;
+        font-size: 0.85rem;
+        padding: 6px 16px;
+        border-radius: 50px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin-bottom: 15px;
+    }
+
+    .about-title {
+        font-size: 2.3rem;
+        font-weight: 800;
+        color: var(--majh-dark);
+        margin-bottom: 20px;
+    }
+
+    .about-lead {
+        font-size: 1.15rem;
+        color: var(--majh-muted);
+        font-weight: 500;
+    }
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 50px;
+        align-items: start;
+    }
+
+    .about-text-content h3 {
+        font-size: 1.4rem;
+        color: var(--majh-primary);
+        margin: 30px 0 15px 0;
+        font-weight: 700;
+    }
+
+    .about-text-content h3:first-child {
+        margin-top: 0;
+    }
+
+    .about-text-content p {
+        color: var(--majh-muted);
+        margin-bottom: 18px;
+        font-size: 1rem;
+    }
+
+    .about-list {
+        padding-left: 20px;
+        margin-bottom: 25px;
+    }
+
+    .about-list li {
+        color: var(--majh-muted);
+        margin-bottom: 12px;
+    }
+
+    .about-list strong {
+        color: var(--majh-dark);
+    }
+
+    .about-sidebar {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .stat-card {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 16px;
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        border: 1px solid rgba(226, 232, 240, 0.8);
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+        font-size: 2.2rem;
+        font-weight: 800;
+        color: var(--majh-primary);
+    }
+
+    .stat-label {
+        font-size: 0.9rem;
+        color: var(--majh-muted);
+        font-weight: 600;
+    }
+
+    .info-box {
+        background: #ffffff;
+        padding: 25px;
+        border-radius: 16px;
+        border-left: 4px solid var(--majh-primary);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+    }
+
+    .info-box h4 {
+        font-size: 1.1rem;
+        margin-bottom: 10px;
+        color: var(--majh-dark);
+    }
+
+    .info-box p {
+        font-size: 0.9rem;
+        color: var(--majh-muted);
+        margin: 0;
+    }
+
+    /* --- BOUTON BURGER --- */
+    .menu-toggle {
+        display: none;
+        width: 44px;
+        height: 44px;
+        border: 0;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.15);
+        cursor: pointer;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 5px;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-toggle span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        border-radius: 2px;
+        background: #fff;
+        transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-toggle:focus-visible,
+    .navbar a:focus-visible,
+    .btn:focus-visible,
+    summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    @keyframes menuIn {
+        from { opacity: 0; transform: translateY(-8px); }
+        to   { opacity: 1; transform: none; }
+    }
+
+    /* --- RESPONSIVE MOBILE / TABLETTE --- */
+    @media (max-width: 900px) {
+        .navbar {
+            flex-wrap: wrap;
+            padding: 0.7rem 1rem;
+            gap: 0;
+        }
+
+        .logo { order: 1; font-size: 1.3rem; }
+        .menu-toggle { display: inline-flex; order: 2; }
+
+        .nav-links, .nav-cta { display: none; flex-basis: 100%; }
+        .nav-links { order: 3; flex-direction: column; gap: 6px; padding-top: 0.75rem; align-items: stretch; }
+        .nav-cta { order: 4; padding: 0.75rem 0 0.4rem; }
+
+        .navbar.menu-open { 
+            max-height: 100vh; 
+            max-height: 100dvh; 
+            overflow-y: auto; 
+            background-color: rgba(15, 23, 42, 0.96) !important; 
+        }
+
+        .navbar.menu-open .nav-links { display: flex; animation: menuIn 0.22s ease-out; }
+        .navbar.menu-open .nav-cta { display: block; animation: menuIn 0.22s ease-out; }
+
+        .navbar .nav-links a {
+            display: block;
+            margin: 0;
+            padding: 0.85rem 1rem;
+            font-size: 1rem;
+            text-align: left;
+            border-radius: 12px;
+            color: #ffffff !important;
+            background-color: rgba(255, 255, 255, 0.08);
+        }
+
+        .navbar .nav-links a.active,
+        .navbar .nav-links a:hover {
+            background-color: var(--majh-primary) !important;
+            color: #ffffff !important;
+        }
+
+        .navbar .nav-cta .btn {
+            display: block;
+            width: 100%;
+            padding: 0.9rem 1rem;
+            font-size: 1rem;
+            text-align: center;
+        }
+
+        .about-grid {
+            grid-template-columns: 1fr;
+            gap: 30px;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .hero {
+            height: auto;
+            min-height: 80vh;
+            min-height: 80svh;
+            padding: 3rem 1.25rem 2.5rem;
+            background-position: center;
+        }
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0.6) 100%);
+        }
+        .hero-content { width: 100%; }
+        .hero-content h1 {
+            font-size: clamp(1.9rem, 8.5vw, 2.4rem);
+            line-height: 1.15;
+            margin-bottom: 0.75rem;
+        }
+        .hero-content p { font-size: 1rem; margin-bottom: 1.5rem; }
+
+        .search-box { flex-direction: column; gap: 8px; padding: 8px; border-radius: 22px; }
+        .search-input { border-radius: 16px; padding: 0.85rem 1rem; min-height: 52px; }
+        .search-input input { font-size: 16px; text-overflow: ellipsis; }
+        .btn-search { width: 100%; min-height: 52px; border-radius: 16px; font-size: 1rem; }
+
+        .container { margin: 3rem auto 2rem; padding: 0 1.25rem; }
+        .section-title { margin-bottom: 1.75rem; }
+        .section-title h2 { font-size: 1.6rem; line-height: 1.25; }
+
+        .cards-grid { grid-template-columns: 1fr; gap: 1.25rem; }
+        .card-img { height: 200px; }
+        .card-body { padding: 1.25rem; }
+        .card-body h3 { font-size: 1.2rem; }
+        .card-body p { font-size: 1rem; }
+        .btn-card { font-size: 1rem; min-height: 44px; }
+
+        .voirplus {
+            width: auto;
+            height: auto;
+            border-radius: 999px;
+            margin: 1.5rem auto;
+            max-width: max-content;
+        }
+        .voirplus a { display: block; padding: 0.9rem 1.75rem; font-size: 1rem; }
+
+        .about-mahajanga { padding: 3rem 1.25rem; }
+        .about-header { margin-bottom: 2rem; }
+        .about-title { font-size: clamp(1.6rem, 7vw, 2rem); line-height: 1.2; }
+        .about-lead { font-size: 1rem; }
+        .about-grid { gap: 2rem; }
+        .about-text-content h3 { font-size: 1.25rem; margin: 1.75rem 0 0.75rem; }
+        .about-text-content h3:first-child { margin-top: 0; }
+
+        .about-sidebar { gap: 12px; }
+        .stat-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.25rem;
+            text-align: left;
+        }
+        .stat-number { min-width: 4.5rem; font-size: 1.7rem; line-height: 1.1; }
+        .stat-label { font-size: 0.9rem; }
+        .info-box { padding: 1.25rem; }
+
+        .faq-container { margin: 2rem 1rem; padding: 1.25rem 1rem; }
+        .faq-container h2 { font-size: 1.4rem; margin-bottom: 1.25rem; }
+        summary { padding: 0.9rem 1rem; gap: 12px; font-size: 0.98rem; min-height: 48px; }
+        summary::after { flex-shrink: 0; }
+        .faq-content { padding: 0 1rem 1rem; font-size: 0.97rem; }
+
+        footer { margin-top: 2rem; padding: 1.5rem 1.25rem; font-size: 0.9rem; }
+    }
+
+    @media (hover: none) {
+        .card:hover { transform: none; box-shadow: var(--shadow); }
+        .btn-primary:hover { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .navbar.menu-open .nav-links,
+        .navbar.menu-open .nav-cta { animation: none; }
+        .menu-toggle span, .card, .btn { transition: none; }
+    }
+</style>
+<body>
+
+    <!-- 1. HEADER / NAVIGATION -->
+    <header class="navbar">
+        <div class="logo">
+           <a href="index.html"> <i class="fa-solid fa-house"></i></a>
+            <span>Mahajanga</span>Tourisme
+        </div>
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" id="menu">
+            <a href="chindex.html" class="active">Accueil</a>
+            <a href="chdecouv.html">Découvrir</a>
+            <a href="chmakethotel.html">Où Dormir</a>
+            <a href="chcircuit.html">Circuits</a>
+            <a href="chinfopratique.html">Infos Pratiques</a>
+            <a href="chcontact.html">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="chguide.html" class="btn btn-primary">Réserver un guide</a>
+        </div>
+    </header>
+
+    <!-- 2. HERO SECTION -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h1>Vivez l'aventure à <span>Mahajanga</span></h1>
+            <p>Entre mer bleu turquoise, nature sauvage et couchers de soleil inoubliables.</p>
+            
+            <!-- Barre de recherche moderne -->
+            <div class="search-box">
+                <div class="search-input">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input type="text" placeholder="Votre direction ? (ex: Cirque Rouge...)">
+                </div>
+                <div class="search-input">
+                    <i class="fa-solid fa-compass"></i>
+                    <input type="text" placeholder="Que cherchez-vous ? (Hôtel, activité...)">
+                </div>
+                <button class="btn btn-search">
+                    <i class="fa-solid fa-magnifying-glass"></i> Rechercher
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. LES INCONTOURNABLES -->
+    <section class="container" id="incontournables">
+        <div class="section-title">
+            <h2>Les Incontournables de Mahajanga</h2>
+            <p>Découvrez les lieux les plus emblématiques de la Cité des Fleurs.</p>
+        </div>
+
+        <div class="cards-grid">
+            <!-- Carte 1 -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('cirque.jpg');">
+                    <span class="badge"><i class="fa-solid fa-mountain-sun"></i></span>
+                </div>
+                <div class="card-body">
+                    <h3>Le Cirque Rouge</h3>
+                    <p>Un amphithéâtre naturel époustouflant aux roches et sables multicolores.</p>
+                    <a href="chdecouv.html" class="btn-card">Découvrir <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Carte 2 -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('image/Mahajanga.jpg');">
+                    <span class="badge"><i class="fa-solid fa-tree"></i></span>
+                </div>
+                <div class="card-body">
+                    <h3>Le Grand Baobab</h3>
+                    <p>L'arbre symbole de la ville, point de ralliement emblématique du Bord de mer.</p>
+                    <a href="chdecouv.html" class="btn-card">Explorer <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+
+            <!-- Carte 3 -->
+            <div class="card">
+                <div class="card-img" style="background-image: url('image/Le\ parc\ national\ d\'Ankarafantsika\,\ dans\ le\ Nord-Ouest\ de\ Madagascar\,\ est\ une\ mosaïque\ de\ forêts\ denses\ et\ sèches_.jpg');">
+                    <span class="badge"><i class="fa-solid fa-paw"></i></span>
+                </div>
+                <div class="card-body">
+                    <h3>Parc d'Ankarafantsika</h3>
+                    <p>Une forêt dense fascinante, habitat des lémuriens et d'oiseaux rares.</p>
+                    <a href="chdecouv.html" class="btn-card">Visiter <i class="fa-solid fa-arrow-right"></i></a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="voirplus">
+       <div class="vp">
+         <strong><a href="chdecouv.html">Voir plus</a></strong>
+       </div>
+    </section>
+
+    <section class="about-mahajanga">
+      <div class="about-container">
+        
+        <!-- En-tête de la section -->
+        <div class="about-header">
+          <span class="about-badge">À propos de la destination</span>
+          <h2 class="about-title">Bienvenue à Mahajanga : La Cité des Fleurs</h2>
+          <p class="about-lead">
+            Située sur la côte nord-ouest de Madagascar, Mahajanga (ou Majunga) est une ville portuaire dynamique, réputée pour son climat ensoleillé toute l'année, son histoire cosmopolite et ses paysages naturels spectaculaires.
+          </p>
+        </div>
+
+        <!-- Contenu principal structuré -->
+        <div class="about-grid">
+          
+          <!-- Colonne Texte Long -->
+          <div class="about-text-content">
+            <h3>Une terre d'histoire et de culture vibrante</h3>
+            <p>
+              Fondée au XVIIIe siècle, Mahajanga s'est développée au fil des séculaires échanges commerciaux entre l'Afrique de l'Est, l'Inde et le monde arabe. Cette diversité se reflète aujourd'hui dans l'architecture locale, la cuisine savoureuse et la convivialité légendaire de ses habitants. 
+            </p>
+            <p>
+              Le symbole incontournable de la ville reste son <strong>Grand Baobab géant</strong>, centenaire et imposant, veillant fièrement sur le Bord de la mer. Chaque soir, résidents et visiteurs s'y rassemblent pour admirer le coucher du soleil et profiter de la douce brise du canal de Mozambique.
+            </p>
+
+            <h3>Des merveilles naturelles uniques au monde</h3>
+            <p>
+              Au-delà du centre-ville, la région du Boeny regorge de trésors écologiques d'exception :
+            </p>
+            <ul class="about-list">
+              <li><strong>Le Cirque Rouge :</strong> Un canyon naturel spectaculaire sculpté par l'érosion, présentant des dégradés de terre allant du blanc pur au rouge ocre.</li>
+              <li><strong>Le Parc National d'Ankarafantsika :</strong> Un sanctuaire de biodiversité abritant des lémuriens rares, des oiseaux endémiques et une forêt dense sèche.</li>
+              <li><strong>Les Grottes d'Anjohibe :</strong> Un complexe souterrain majestueux entouré de piscines naturelles et de cascades.</li>
+            </ul>
+
+            <h3>Un art de vivre tourné vers la détente</h3>
+            <p>
+              Voyager à Mahajanga, c'est aussi adopter un rythme apaisant. Que vous soyez amateur de farniente sur les plages d'Amborovy et de Grand Pavois, passionné de pêche sportive ou épicurien désireux de goûter aux fameuses brochettes locales et aux poissons frais, la Cité des Fleurs vous promet une expérience immersive inoubliable.
+            </p>
+          </div>
+
+          <!-- Colonne Latérale / Chiffres Clés -->
+          <div class="about-sidebar">
+            <div class="stat-card">
+              <span class="stat-number">+300</span>
+              <span class="stat-label">Jours de soleil par an</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">14 m</span>
+              <span class="stat-label">Circonférence du Grand Baobab</span>
+            </div>
+            <div class="stat-card">
+              <span class="stat-number">100%</span>
+              <span class="stat-label">Dépaysement garanti</span>
+            </div>
+
+            <div class="info-box">
+              <h4> Comment s'y rendre ?</h4>
+              <p>Accessible par voie aérienne via l'aéroport d'Amborovy ou par la route nationale RN4 offrant des paysages panoramiques depuis Antananarivo.</p>
+            </div>
+          </div>
+
+        </div>
+
+      </div>
+    </section>
+
+    <main class="faq-container">
+        <h2>FAQ - Tourisme à Mahajanga</h2>
+
+        <details class="faq-item">
+          <summary>Quelle est la meilleure période pour visiter Mahajanga ?</summary>
+          <div class="faq-content">
+            <p>La période idéale s'étend de <strong>avril à novembre</strong> (saison sèche). Le climat y est très ensoleillé avec des températures agréables. Les mois de juillet et août sont particulièrement animés.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Quels sont les sites touristiques incontournables ?</summary>
+          <div class="faq-content">
+            <p>Les incontournables comprennent :</p>
+            <ul>
+              <li>Le majestueux <strong>Baobab géant</strong> au bord de la mer.</li>
+              <li>Le parc national d'<strong>Ankarafantsika</strong> pour sa faune et sa flore.</li>
+              <li>Les poursuites géologiques des <strong>Cirques Rouges</strong> d'Amborovy.</li>
+              <li>La célèbre plage du <strong>Village Touristique</strong> et la promenade du Bord.</li>
+              <li>Les plages d'<strong>Amborovy</strong> et de <strong>Grand Pavois</strong>.</li>
+            </ul>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Comment se déplacer en ville ?</summary>
+          <div class="faq-content">
+            <p>Le moyen le plus populaire et pratique est le <strong>tuk-tuk</strong>. Vous trouverez aussi des pousse-pousse traditionnels pour les courts trajets et des taxis de ville.</p>
+          </div>
+        </details>
+
+        <details class="faq-item">
+          <summary>Où déguster les spécialités locales ?</summary>
+          <div class="faq-content">
+            <p>Rendez-vous le soir le long du <strong>Bord de la mer</strong> pour goûter aux brochettes de viande localement appelées <em>masikita</em> accompagnées de manioc ou de bananes grillées.</p>
+          </div>
+        </details>
+    </main>
+
+    <!-- 4. FOOTER -->
+    <footer>
+        <p>&copy; 2026 Mahajanga Tourisme. Tous droits réservés.</p>
+    </footer>
+
+    <!-- SCRIPT DU MENU BURGER -->
+    <script>
+    (function () {
+        var header = document.querySelector('.navbar');
+        var btn = header.querySelector('.menu-toggle');
+        function setOpen(open) {
+            header.classList.toggle('menu-open', open);
+            btn.setAttribute('aria-expanded', open);
+            btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+        }
+        btn.addEventListener('click', function () {
+            setOpen(!header.classList.contains('menu-open'));
+        });
+        header.querySelectorAll('.nav-links a').forEach(function (a) {
+            a.addEventListener('click', function () { setOpen(false); });
+        });
+        document.addEventListener('keydown', function (e) {
+            if (e.key === 'Escape') setOpen(false);
+        });
+        window.matchMedia('(min-width: 901px)').addEventListener('change', function (e) {
+            if (e.matches) setOpen(false);
+        });
+    })();
+    </script>
+
+</body>
+</html>

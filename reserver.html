@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation d'Hôtel</title>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Roboto', sans-serif;
+      backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      color: #333333;
+      display: flex;
+      justify-content: center;
+      padding: 0px;
+      display: flex;
+      flex-direction: column;
+
+    }
+
+    .form-container {
+      width: 100%;
+      max-width: 100%;
+      height: 790px;
+      padding: 1rem 1rem;
+      border: 1px solid transparent;
+      border-radius: 30px;
+      background-color:#ffffff;
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        
+    }
+
+    /* En-tête */
+    .header {
+      text-align: center;
+      margin-bottom: 35px;
+      
+    }
+
+    .header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 6px;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      color: #6b7280;
+    }
+
+    /* Styles des éléments du formulaire */
+    .form-group {
+      margin-bottom: 22px;
+      margin: 12px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #1f2937;
+      margin-bottom: 8px;
+    }
+
+    .sub-label {
+      display: block;
+      font-size: 0.75rem;
+      color: #6b7280;
+      margin-top: 5px;
+    }
+
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="date"],
+    input[type="time"],
+    select,
+    textarea {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      font-size: 0.9rem;
+      color: #374151;
+      outline: none;
+      background-color: #fff;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      border-color:orangered;
+    }
+
+    /* Dispositions en grille */
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+
+    .grid-time {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 10px;
+    }
+
+    /* Boutons radio */
+    .radio-group {
+      display: flex;
+      gap: 30px;
+      margin-top: 8px;
+    }
+
+    .radio-option {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+      color: #374151;
+      cursor: pointer;
+    }
+
+    .radio-option input {
+      accent-color: orangered;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Bouton d'envoi */
+    .btn-submit-container {
+      text-align: center;
+      margin-top: 30px;
+    }
+
+    .btn-submit {
+      background-color: rgba(255, 68, 0, 0.747);
+      color: white;
+      border: none;
+      padding: 12px 40px;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background-color 0.2s;
+      border-radius: 30px;
+    }
+
+    .btn-submit:hover {
+      background-color: #059669;
+    }
+
+    @media (max-width: 600px) {
+      .grid-2, .grid-time, .grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .radio-group {
+        flex-direction: column;
+        gap: 10px;
+      }
+    }
+    
+/* --- BARRE DE NAVIGATION --- */
+
+.logo {
+    font-family: 'Poppins', sans-serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--secondary);
+    display: flex;
+    align-items: center;
+}
+.logo span {
+    color: orangered;
+}
+
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    margin: 2px;
+    font-weight: 500;
+      font-family: 'poppins',sans-serif;
+    /* font-size: 1.2rem; */
+    padding: 10px;
+    
+}
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+.nav-links a:hover, .nav-links a.active {
+    border-bottom: 2px solid orangered;
+      border: 1px solid transparent;
+    background-color:var(--majh-primary);
+    color: white;
+    border-radius: 50px;
+    
+    border: none;
+    font-weight: 500;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    
+}
+
+
+/* --- BOUTONS --- */
+.btn {
+    padding: 0.75rem 1.5rem;
+    border-radius: 50px;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+}
+
+.btn-primary {
+    background-color: var(--primary-hover);
+    color: white;
+}
+.btn-primary:hover{
+    background-color: orange;
+    transform: translateY(-2px);
+
+}
+.navbar{
+    background-color: #6c757d;
+    border-radius: 0px;
+    text-align: center;
+    align-items: center;
+    justify-content: space-between;
+    display: flex;
+    padding: 1.2rem 5%;
+    top: 0px;
+    right: 120px;
+    height: auto;
+    background-color: rgba(16, 18, 22, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+    position: sticky;
+    z-index: 1000;
+    gap: 22px;
+    
+}
+a{
+    text-decoration: none;
+    font-family: 'poppins'sans-serif ;
+    color: white;
+font-size: 13px;
+}
+.fa-house{
+  color:var(--bg-light);
+  display: flex;
+  padding: 12px;
+  position: absolute;
+  left: 20px;
+  font-size: 25px;
+  top: 13px;
+}
+    :root {
+  --majh-primary: #009688;
+  --majh-dark: #1e293b;
+  --majh-muted: #475569;
+  --majh-light-bg: #f8fafc;
+}
+:root {
+    --primary: #f9844a; 
+    --primary-hover: #e06d32;
+    --secondary: #0077b6; 
+    --accent: #00b4d8; 
+    --bg-light: #f8f9fa;
+    --text-dark: #1d2d44;
+    --text-muted: #6c757d;
+    --white: #ffffff;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    --radius: 16px;
+}
+  </style>
+</head>
+<body>
+ 
+    <header class="navbar">
+        <div class="logo">
+           <a href="index.html"> <i class="fa-solid fa-house"></i></a>
+            <span>Mahajanga</span>Tourisme
+        </div>
+        <nav class="nav-links">
+          
+        </nav>
+        <div class="nav-cta">
+            <a href="makethotel.html" class="btn btn-primary">Retour</a>
+        </div>
+    </header>
+  <div class="form-container">
+ 
+    
+    <!-- EN-TÊTE -->
+    <div class="header">
+      <h1>Réservation d'hôtel</h1>
+      <p>Vivez quelque chose de nouveau à chaque instant </p>
+    </div>
+
+    <form>
+      
+      <!-- NOM & ÉMAIL -->
+      <div class="grid-2 form-group">
+        <div>
+          <label>Nom</label>
+          <div class="grid-2">
+            <div>
+              <input type="text">
+              <span class="sub-label">Nom</span>
+            </div>
+            <div>
+              <input type="text">
+              <span class="sub-label">Prénom</span>
+            </div>
+          </div>
+        </div>
+        <div>
+          <label>E-mail</label>
+          <input type="email" placeholder="ex: myname@example.com">
+          <span class="sub-label">example@example.com</span>
+        </div>
+      </div>
+
+      <!-- TYPE DE CHAMBRE & NOMBRE DE PERSONNES -->
+      <div class="grid-2 form-group">
+        <div>
+          <label>Type de chambre</label>
+          <select>
+            <option value="" disabled selected>Selectionner</option>
+            <option value="single">Une seul chambre</option>
+            <option value="double">Deux chambre</option>
+            <option value="suite">Chambre Familiale</option>
+            <option value="suite">Suite</option>
+          </select>
+        </div>
+        <div>
+          <label>Votre âges</label>
+          <input type="text" placeholder="e.g., 23">
+        </div>
+      </div>
+
+      <!-- DATE ET HEURE D'ARRIVÉE -->
+      <div class="form-group">
+        <label>Date & heure d'arrivée</label>
+        <div class="grid-time">
+          <div>
+            <input type="date" value="2026-10-7">
+            <span class="sub-label">Date</span>
+          </div>
+          <div>
+            <input type="text" value="04:23">
+            <span class="sub-label">Heure Minutes</span>
+          </div>
+          <div>
+            <select>
+              <option value="AM">AM</option>
+              <option value="PM">PM</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- DATE DE DÉPART -->
+      <div class="form-group">
+        <label>Date de départ</label>
+        <div class="grid-3">
+          <div>
+            <select>
+              <option value="" disabled selected>Veuillez séléctionner un jour </option>
+              <option value="1">1</option>
+              <option value="2">2</option>
+              <option value="3">3</option>
+              <option value="3">4</option>
+              <option value="3">5</option>
+              <option value="3">6</option>
+              <option value="3">7</option>
+              <option value="3">8</option>
+              <option value="3">9</option>
+              <option value="3">10</option>
+              <option value="3">11</option>
+              <option value="3">12</option>
+              <option value="3">13</option>
+              <option value="3">14</option>
+              <option value="3">15</option>
+              <option value="3">16</option>
+              <option value="3">17</option>
+              <option value="3">18</option>
+              <option value="3">19</option>
+              <option value="3">20</option>
+              <option value="3">21</option>
+              <option value="3">22</option>
+              <option value="3">23</option>
+              <option value="3">24</option>
+              <option value="3">25</option>
+              <option value="3">26</option>
+              <option value="3">27</option>
+              <option value="3">28</option>
+              <option value="3">29</option>
+              <option value="3">30</option>
+              <option value="3">31</option>
+            </select>
+            <span class="sub-label">Jour</span>
+            
+          </div>
+          <div>
+            
+            <select>
+              <option value="" disabled selected>Veuillez séléctionner un mois </option>
+              <option value="1">Janvier</option>
+              <option value="2">Février</option>
+              <option value="3">Mars</option>
+              <option value="4">Avril</option>
+              <option value="4">Mai</option>
+              <option value="4">Juin</option>
+              <option value="4">Juillet</option>
+              <option value="4">Août</option>
+              <option value="4">Septembre</option>
+              <option value="4">Octobre</option>
+              <option value="4">Novembre</option>
+              <option value="4">Décembre</option>
+            </select>
+            <span class="sub-label">Mois</span>
+          </div>
+          <div>
+            <select>
+              <option value="" disabled selected>Veuillez séléctionner l'année</option>
+              <option value="2026">2026</option>
+              <option value="2027">2027</option>
+              <option value="2027">2028</option>
+              <option value="2027">2029</option>
+              <option value="2027">2030</option>
+            </select>
+            <span class="sub-label">Année</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- TRANSPORT GRATUIT -->
+      <div class="form-group">
+        <label>Ramassage gratuit ?</label>
+        <div class="radio-group">
+          <label class="radio-option">
+            <input type="radio" name="pickup" value="yes">
+            Oui s'il vous plaît! - Venez me chercher à mon arrivée.
+          </label>
+          <label class="radio-option">
+            <input type="radio" name="pickup" value="no">
+            Non merci ! - Je m'y rendrai par mes propres moyens.
+          </label>
+        </div>
+      </div>
+
+      <!-- DEMANDES SPÉCIALES -->
+      <div class="form-group">
+        <label>Demandes particulières</label>
+        <textarea></textarea>
+      </div>
+
+      <!-- BOUTON VALIDER -->
+      <div class="btn-submit-container">
+        <button type="submit" class="btn-submit">Réservée</button>
+      </div>
+
+    </form>
+  </div>
+
+</body>
+</html>

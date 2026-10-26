@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact Us - Mahajanga Tourisme</title>
+  <!-- Font Awesome pour les icônes -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    html {
+      -webkit-text-size-adjust: 100%;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+    }
+
+    .contact-section {
+      position: relative;
+      min-height: calc(100vh - 80px);
+      padding: 50px 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      /* Image de fond avec filtre sombre */
+      background: url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop') no-repeat center center/cover;
+    }
+
+    .contact-section .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(30, 30, 30, 0.85); /* Voile sombre/brumeux */
+      z-index: 1;
+    }
+
+    .container {
+      position: relative;
+      z-index: 2;
+      max-width: 1100px;
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    /* En-tête */
+    .header {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 50px auto;
+    }
+
+    .header h2 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 15px;
+      color: #00bcd4;
+    }
+
+    .header p {
+      font-size: 0.9rem;
+      color: #ccc;
+      line-height: 1.6;
+      font-weight: 300;
+    }
+
+    /* Disposition en 2 colonnes */
+    .content {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* Colonne de gauche (Informations) */
+    .contact-info {
+      flex: 1;
+      min-width: 300px;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 30px;
+    }
+
+    .icon-box {
+      width: 60px;
+      height: 60px;
+      background-color: #fff;
+      color: #222;
+      border-radius: 50%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 1.4rem;
+      margin-right: 20px;
+      flex-shrink: 0;
+    }
+
+    .details h3 {
+      font-size: 1.1rem;
+      color: #00bcd4; /* Cyan pour les sous-titres */
+      margin-bottom: 5px;
+      font-weight: 600;
+    }
+
+    .details p {
+      color: #fff;
+      font-size: 0.95rem;
+      line-height: 1.4;
+    }
+
+    /* Colonne de droite (Formulaire) */
+    .contact-form {
+      flex: 1;
+      min-width: 320px;
+      background-color: #fff;
+      padding: 40px 35px;
+      color: #333;
+      border-radius: 30px;
+    }
+
+    .contact-form h2 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #222;
+      margin-bottom: 30px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 30px;
+    }
+
+    .input-group input,
+    .input-group textarea {
+      width: 100%;
+      padding: 10px 0;
+      font-size: 1rem;
+      color: #333;
+      border: none;
+      border-bottom: 2px solid #555;
+      outline: none;
+      background: transparent;
+      resize: none;
+    }
+
+    .input-group textarea {
+      height: 80px;
+    }
+
+    .input-group label {
+      position: absolute;
+      top: 10px;
+      left: 0;
+      font-size: 0.95rem;
+      color: #888;
+      pointer-events: none;
+      transition: 0.3s ease all;
+    }
+
+    /* Animation des labels */
+    .input-group input:focus ~ label,
+    .input-group input:not(:placeholder-shown) ~ label,
+    .input-group textarea:focus ~ label,
+    .input-group textarea:not(:placeholder-shown) ~ label {
+      top: -18px;
+      font-size: 0.8rem;
+      color: #00bcd4;
+    }
+
+    /* Bouton Send */
+    .btn-send {
+      width: 100%;
+      padding: 12px;
+      background-color: #00bcd4;
+      color: #fff;
+      border: none;
+      font-size: 1.1rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 30px;
+    }
+
+    .btn-send:hover {
+      background-color: #008c9e;
+    }
+
+    /* --- BARRE DE NAVIGATION --- */
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 1.2rem 5%;
+      background-color: rgba(15, 23, 42, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      gap: 20px;
+    }
+
+    .logo {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--secondary);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .logo span {
+      color: orangered;
+    }
+
+    :root {
+      --majh-primary: #009688;
+      --majh-dark: #1e293b;
+      --majh-muted: #475569;
+      --majh-light-bg: #f8fafc;
+      --primary: #f9844a; 
+      --primary-hover: #e06d32;
+      --secondary: #0077b6; 
+      --accent: #00b4d8; 
+      --bg-light: #f8f9fa;
+      --text-dark: #1d2d44;
+      --text-muted: #6c757d;
+      --white: #ffffff;
+      --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+      --radius: 16px;
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: var(--white);
+      margin: 0px;
+      font-weight: 500;
+      transition: 0.3s;
+      font-family: 'Poppins', sans-serif;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    .nav-links a:hover, 
+    .nav-links a.active {
+      background-color: var(--majh-primary);
+      color: var(--white);
+      border-radius: 50px;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+      padding: 10px;
+    }
+
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border-radius: 50px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-hover);
+      color: white;
+    }
+
+    .btn-primary:hover {
+      background-color: orange;
+      transform: translateY(-2px);
+    }
+
+    .fa-house {
+      color: var(--white);
+      font-size: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .icon-box .fa-house {
+      color: black;
+    }
+
+    /* --- BOUTON BURGER --- */
+    .menu-toggle {
+      display: none;
+      width: 44px;
+      height: 44px;
+      border: 0;
+      border-radius: 12px;
+      background: rgba(255, 255, 255, 0.15);
+      cursor: pointer;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .menu-toggle span {
+      display: block;
+      width: 20px;
+      height: 2px;
+      border-radius: 2px;
+      background: #fff;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+
+    .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+    .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .menu-toggle:focus-visible,
+    .navbar a:focus-visible,
+    .btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+    @keyframes menuIn {
+      from { opacity: 0; transform: translateY(-8px); }
+      to   { opacity: 1; transform: none; }
+    }
+
+    /* --- RESPONSIVE MOBILE / TABLETTE --- */
+    @media (max-width: 900px) {
+      .navbar {
+        flex-wrap: wrap;
+        padding: 0.7rem 1rem;
+        gap: 0;
+      }
+
+      .logo { order: 1; font-size: 1.3rem; }
+      .menu-toggle { display: inline-flex; order: 2; }
+
+      .nav-links, .nav-cta { display: none; flex-basis: 100%; }
+      .nav-links { order: 3; flex-direction: column; gap: 6px; padding-top: 0.75rem; align-items: stretch; }
+      .nav-cta { order: 4; padding: 0.75rem 0 0.4rem; }
+
+      /* Arrière-plan du menu ouvert sur mobile */
+      .navbar.menu-open { 
+        max-height: 100vh; 
+        max-height: 100dvh; 
+        overflow-y: auto; 
+        background-color: rgba(15, 23, 42, 0.96); 
+      }
+
+      .navbar.menu-open .nav-links { display: flex; animation: menuIn 0.22s ease-out; }
+      .navbar.menu-open .nav-cta { display: block; animation: menuIn 0.22s ease-out; }
+
+      .navbar .nav-links a {
+        display: block;
+        margin: 0;
+        padding: 0.85rem 1rem;
+        font-size: 1rem;
+        text-align: left;
+        border-radius: 12px;
+        color: #ffffff;
+        background-color: rgba(255, 255, 255, 0.08);
+      }
+
+      .navbar .nav-links a.active,
+      .navbar .nav-links a:hover {
+        background-color: var(--majh-primary);
+        color: #ffffff;
+      }
+
+      .navbar .nav-cta .btn {
+        display: block;
+        width: 100%;
+        padding: 0.9rem 1rem;
+        font-size: 1rem;
+        text-align: center;
+      }
+
+      .content {
+        flex-direction: column;
+      }
+
+      .contact-form {
+        width: 100%;
+      }
+    }
+
+    @media (hover: none) {
+      .btn-primary:hover { transform: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .navbar.menu-open .nav-links,
+      .navbar.menu-open .nav-cta { animation: none; }
+      .menu-toggle span, .btn { transition: none; }
+    }
+  </style>
+</head>
+<body>
+   <header class="navbar">
+        <div class="logo">
+           <a href="index.html"> <i class="fa-solid fa-house"></i></a>
+           <span>Mahajanga</span>Tourisme
+        </div>
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" id="menu">
+            <a href="chindex.html">Accueil</a>
+            <a href="chdecouv.html">Découvrir</a>
+            <a href="chmakethotel.html">Où Dormir</a>
+            <a href="chcircuit.html">Circuits</a>
+            <a href="chinfopratique.html">Infos Pratiques</a>
+            <a href="chcontact.html" class="active">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="chguide.html" class="btn btn-primary">Réserver un guide</a>
+        </div>
+    </header>
+
+  <section class="contact-section">
+    <div class="overlay"></div>
+
+    <div class="container">
+      <!-- En-tête -->
+      <div class="header">
+        <h2>Contactez-nous</h2>
+        <p>Découvrez la beauté unique de la région du Boeny. Pour toute question, visite guidée ou information touristique sur Mahajanga, n'hésitez pas à nous contacter.</p>
+      </div>
+
+      <!-- Contenu principal -->
+      <div class="content">
+        <!-- Informations de contact -->
+        <div class="contact-info">
+
+          <div class="info-item">
+            <div class="icon-box">
+               <i class="fa-solid fa-location-dot" style="color: red;"></i>
+            </div>
+            <div class="details">
+              <h3>Address</h3>
+              <p>Madagascar<br>Mahajanga</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-box">
+              <i class="fa-solid fa-phone"></i>
+            </div>
+            <div class="details">
+              <h3>Téléphone</h3>
+              <p>+261 32 43 265 37</p>
+            </div>
+          </div>
+
+          <div class="info-item">
+            <div class="icon-box">
+              <a href="https://linkedin.com" target="_blank" rel="noopener noreferrer" style="text-decoration: none;">
+                <i class="fa-brands fa-linkedin" style="font-size: 30px; color: #0077B5;"></i>
+              </a>
+            </div>
+            <div class="details">
+              <h3>Linked in</h3>
+              <p><a href="https://linkedin.com" style="cursor: pointer;">MASOVIA MADAGASCAR</a></p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formulaire de message -->
+        <div class="contact-form">
+          <h2>Message à envoyer</h2>
+          <form action="#" method="POST">
+            <div class="input-group">
+              <input type="text" id="fullname" required placeholder=" ">
+              <label for="fullname">Prénom</label>
+            </div>
+            <div class="input-group">
+              <input type="email" id="email" required placeholder="">
+              <label for="email">Email</label>
+            </div>
+            <div class="input-group">
+              <textarea id="message" required placeholder=" "></textarea>
+              <label for="message">Type de Message...</label>
+            </div>
+            <button type="submit" class="btn-send">Envoyer</button>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SCRIPT DU MENU BURGER -->
+  <script>
+  (function () {
+      var header = document.querySelector('.navbar');
+      var btn = header.querySelector('.menu-toggle');
+      function setOpen(open) {
+          header.classList.toggle('menu-open', open);
+          btn.setAttribute('aria-expanded', open);
+          btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+      }
+      btn.addEventListener('click', function () {
+          setOpen(!header.classList.contains('menu-open'));
+      });
+      header.querySelectorAll('.nav-links a').forEach(function (a) {
+          a.addEventListener('click', function () { setOpen(false); });
+      });
+      document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') setOpen(false);
+      });
+      window.matchMedia('(min-width: 901px)').addEventListener('change', function (e) {
+          if (e.matches) setOpen(false);
+      });
+  })();
+  </script>
+
+</body>
+</html>

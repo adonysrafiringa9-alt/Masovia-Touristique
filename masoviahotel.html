@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Royal Crest - Hôtel de Luxe</title>
+    
+    <!-- Polices Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Icônes FontAwesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --bg-dark: #0f1115;
+            --bg-card: #161920;
+            --gold: #c59d5f;
+            --gold-hover: #e0b475;
+            --text-light: #e0e0e0;
+            --text-muted: #a0a0a0;
+            --border-color: rgba(197, 157, 95, 0.2);
+            --primary: #f9844a; 
+            --primary-hover: #e06d32;
+            --secondary: #0077b6; 
+            --accent: #00b4d8; 
+            --majh-primary: #009688;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo-title {
+            font-family: 'Cinzel', serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- NAVBAR --- */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background: rgba(15, 17, 21, 0.9);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .logo-container {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-container span {
+            color: orangered;
+        }
+
+        .logo-container a {
+            color: var(--text-light);
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            transition: color 0.3s;
+        }
+
+        .logo-container a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-links a {
+            border: 1px solid transparent;
+            background-color:transparent;
+            border-radius: 30px;
+            padding: 0.7rem;
+            text-decoration: none;
+            color: var(--text-light);
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            border-color:var(--secondary) ;
+        }
+
+        .btn-gold {
+            background-color: var(--primary);
+            color: #000;
+            padding: 0.7rem 1.8rem;
+            border: none;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-gold:hover {
+            background-color: var(--primary-hover);
+            box-shadow: 0 0 15px rgba(197, 157, 95, 0.4);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            height: 90vh;
+            background: linear-gradient(to right, rgba(15, 17, 21, 0.95) 30%, rgba(15, 17, 21, 0.4)), 
+                        url('fdh.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            padding: 0 8%;
+            margin-top: 75px;
+        }
+
+        .hero-content {
+            max-width: 550px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.2rem;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+            color: #fff;
+        }
+
+        .hero-content p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+        }
+
+        /* --- TYPES DE CHAMBRES --- */
+        .room-types {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            padding: 3rem 8%;
+            background-color: #12141a;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .room-type-item {
+            text-align: center;
+            padding: 1rem;
+        }
+
+        .room-type-item i {
+            font-size: 1.8rem;
+            color: var(--gold);
+            margin-bottom: 0.8rem;
+        }
+
+        .room-type-item h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-light);
+        }
+
+        .room-type-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.2rem;
+            margin: 4rem 0 3rem;
+            color: #fff;
+        }
+
+        /* --- SERVICES & AMENITIES --- */
+        .amenities {
+            padding: 2rem 8% 5rem;
+            background-color: #0c0d10;
+        }
+
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .amenity-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(197, 157, 95, 0.15);
+            border-radius: 6px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .amenity-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+        }
+
+        .amenity-img-box {
+            position: relative;
+            height: 160px;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .amenity-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .amenity-card:hover .amenity-img-box img {
+            transform: scale(1.08);
+        }
+
+        .amenity-icon-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: rgba(15, 17, 21, 0.85);
+            color: var(--gold);
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            border: 1px solid var(--gold);
+        }
+
+        .amenity-content {
+            padding: 1.2rem;
+            text-align: center;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .amenity-content h4 {
+            font-size: 1rem;
+            margin-bottom: 0.4rem;
+            color: var(--text-light);
+        }
+
+        .amenity-content p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+        }
+
+        .btn-more {
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* --- MODALES --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(5px);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            padding: 1rem;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--gold);
+            width: 100%;
+            max-width: 520px;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            position: relative;
+            transform: scale(0.8);
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .modal-overlay.active .modal-card {
+            transform: scale(1);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 12px;
+            right: 15px;
+            font-size: 1.8rem;
+            color: #fff;
+            cursor: pointer;
+            z-index: 10;
+            background: rgba(0,0,0,0.6);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .modal-close:hover {
+            color: red;
+        }
+
+        .modal-img-container {
+            width: 100%;
+            height: 200px;
+            overflow: hidden;
+        }
+
+        .modal-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .modal-body {
+            padding: 1.8rem;
+        }
+
+        .modal-title {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-bottom: 0.8rem;
+        }
+
+        .modal-description {
+            font-size: 0.88rem;
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        /* --- FORMULAIRE DE RÉSERVATION --- */
+        .booking-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+            text-align: left;
+            margin-top: 1rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.4rem;
+        }
+
+        .form-group label {
+            font-size: 0.8rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .form-group input, 
+        .form-group select {
+            background-color: #0f1115;
+            border: 1px solid var(--border-color);
+            color: #fff;
+            padding: 0.7rem 1rem;
+            border-radius: 4px;
+            font-family: inherit;
+            font-size: 0.85rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus, 
+        .form-group select:focus {
+            border-color: var(--gold);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .btn-modal-close {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            padding: 0.7rem 1.5rem;
+            font-size: 0.85rem;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+            border-radius: 30px;
+        }
+
+        .btn-modal-close:hover {
+            color: #fff;
+            border-color: #940b0b;
+            background-color: red;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        /* --- MENU BURGER MOBILE --- */
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.12);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+        .menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: #fff;
+            transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        @keyframes menuIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        /* --- RESPONSIVE MOBILE / TABLETTE --- */
+        @media (max-width: 900px) {
+            header { padding: 0.7rem 1rem; flex-wrap: wrap; gap: 0; }
+            .menu-toggle { display: inline-flex; }
+            
+            .nav-links, .nav-cta { display: none; flex-basis: 100%; }
+            .nav-links { order: 3; flex-direction: column; align-items: stretch; gap: 4px; padding-top: 0.75rem; }
+            .nav-cta { order: 4; padding: 0.75rem 0 0.4rem; display: block; text-align: center; }
+
+            header.menu-open { max-height: 100vh; overflow-y: auto; }
+            header.menu-open .nav-links { display: flex; animation: menuIn 0.22s ease-out; }
+            header.menu-open .nav-cta { display: block; animation: menuIn 0.22s ease-out; }
+
+            .nav-links a {
+                display: block;
+                padding: 0.85rem 1rem;
+                font-size: 1rem;
+                text-align: left;
+                border-radius: 12px;
+                background: rgba(255,255,255,0.03);
+            }
+
+            .amenities-grid { grid-template-columns: repeat(2, 1fr); }
+            .room-types { grid-template-columns: 1fr; gap: 1rem; padding: 2rem 5%; }
+            .hero { height: auto; padding: 4rem 5%; margin-top: 65px; }
+            .hero-content h1 { font-size: 2.2rem; }
+        }
+
+        @media (max-width: 550px) {
+            .amenities-grid { grid-template-columns: 1fr; }
+            .form-row { grid-template-columns: 1fr; }
+            .hero-content h1 { font-size: 1.8rem; }
+        }
+       
+    </style>
+</head>
+<body>
+
+    <!-- BARRE DE NAVIGATION -->
+    <header>
+        <div class="logo-container">
+            <a href="makethotel.html"><i class="fa-solid fa-arrow-left"></i></a>
+            <span>Mahajanga</span>Tourisme
+        </div>
+
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+            <span></span><span></span><span></span>
+        </button>
+
+        <ul class="nav-links" id="menu">
+            <li><a href="#accueil">Accueil</a></li>
+            <li><a href="#chambres">Chambres</a></li>
+            <li><a href="#spa">Services</a></li>
+        </ul>
+
+        <div class="nav-cta">
+            <button class="btn-gold" onclick="openBookingModal()">Réserver</button>
+        </div>
+    </header>
+
+    <!-- SECTION D'ACCUEIL -->
+    <section class="hero" id="accueil">
+        <div class="hero-content">
+            <h1>Bienvenue à Baobab Tree</h1>
+            <p>Découvrez une hospitalité de classe mondiale, une élégance raffinée et un confort inégalé dans nos suites exclusives.</p>
+            <button class="btn-gold" onclick="openBookingModal()">Vérifier les disponibilités</button>
+        </div>
+    </section>
+
+    <!-- TYPES DE CHAMBRES -->
+    <section class="room-types" id="chambres">
+        <div class="room-type-item">
+            <i class="fa-solid fa-hotel"></i>
+            <h3>Chambres Supérieures</h3>
+            <p>Conçues pour le confort avec des équipements modernes et une élégance intemporelle.</p>
+        </div>
+        <div class="room-type-item">
+            <i class="fa-solid fa-chess-king"></i>
+            <h3>Suites Deluxe</h3>
+            <p>Espaces de vie spacieux offrant des vues panoramiques et un service premium.</p>
+        </div>
+        <div class="room-type-item">
+            <i class="fa-solid fa-crown"></i>
+            <h3>Chambres Exécutives</h3>
+            <p>Un luxe inégalé adapté aux hôtes de marque et aux longs séjours.</p>
+        </div>
+    </section>
+
+    <!-- ÉQUIPEMENTS ET SERVICES -->
+    <section class="amenities" id="spa">
+        <h2 class="section-title">Services & Équipements de l'Hôtel</h2>
+        <div class="amenities-grid">
+            
+            <div class="amenity-card" onclick="openServiceModal('Bien-être', 'Spabb1.jpg', 'Notre centre de Spa & Bien-être vous propose une gamme complète de soins holistiques, de massages personnalisés et de thérapies aromatiques. Profitez de nos saunas privés, hammams en marbre et bassins de relaxation pour un ressourcement absolu.')">
+                <div class="amenity-img-box">
+                    <img src="Spabb1.jpg" alt="Spa & Bien-être">
+                    <div class="amenity-icon-badge"><i class="fa-solid fa-spa"></i></div>
+                </div>
+                <div class="amenity-content">
+                    <h4>Bien-être</h4>
+                    <p>Ressourcez votre corps et votre esprit grâce à des soins sur mesure.</p>
+                    <span class="btn-more">Voir détails &rarr;</span>
+                </div>
+            </div>
+
+            <div class="amenity-card" onclick="openServiceModal('Spa', 'Spabb.jpg', 'Notre centre de Spa vous propose de profiter de nos saunas privés, hammams en marbre et bassins de relaxation pour un ressourcement absolu.')">
+                <div class="amenity-img-box">
+                    <img src="Spabb.jpg" alt="Spa">
+                    <div class="amenity-icon-badge"><i class="fa-solid fa-spa"></i></div>
+                </div>
+                <div class="amenity-content">
+                    <h4>Spa</h4>
+                    <p>Ressourcez votre corps et votre esprit grâce au Spa.</p>
+                    <span class="btn-more">Voir détails &rarr;</span>
+                </div>
+            </div>
+
+            <div class="amenity-card" onclick="openServiceModal('Haute Gastronomie', 'nuib1.jpg', 'Savourez une expérience culinaire d’exception orchestrée par nos chefs étoilés. Notre restaurant propose une carte raffinée mettant à l’honneur les produits locaux et de saison, accompagnée d’une cave à vins prestigieuse.')">
+                <div class="amenity-img-box">
+                    <img src="nuib1.jpg" alt="Haute Gastronomie">
+                    <div class="amenity-icon-badge"><i class="fa-solid fa-utensils"></i></div>
+                </div>
+                <div class="amenity-content">
+                    <h4>Haute Gastronomie</h4>
+                    <p>Des créations culinaires exquises préparées par nos chefs renommés.</p>
+                    <span class="btn-more">Voir détails &rarr;</span>
+                </div>
+            </div>
+
+            <div class="amenity-card" onclick="openServiceModal('Piscine sur le Toit', 'Piscinebb.jpg', 'Survolez la ville depuis notre piscine à débordement chauffée située sur le rooftop. Profitez de cabanes privatives, d’un service de rafraîchissements continu et d’une vue panoramique spectaculaire.')">
+                <div class="amenity-img-box">
+                    <img src="Piscinebb.jpg" alt="Piscine sur le Toit">
+                    <div class="amenity-icon-badge"><i class="fa-solid fa-person-swimming"></i></div>
+                </div>
+                <div class="amenity-content">
+                    <h4>Piscine</h4>
+                    <p>Piscine à débordement avec vue panoramique et cabanes privées.</p>
+                    <span class="btn-more">Voir détails &rarr;</span>
+                </div>
+            </div>
+
+            <div class="amenity-card" onclick="openServiceModal('Salle de sport', 'Sportbb.jpg', 'Un espace de fitness moderne ouvert 24h/24, équipé des dernières technologies de musculation et de cardio. Des coachs sportifs personnels sont également disponibles sur réservation.')">
+                <div class="amenity-img-box">
+                    <img src="Sportbb.jpg" alt="Fitness Center">
+                    <div class="amenity-icon-badge"><i class="fa-solid fa-dumbbell"></i></div>
+                </div>
+                <div class="amenity-content">
+                    <h4>Salle de sport</h4>
+                    <p>Salle de sport équipée pour tous vos entraînements.</p>
+                    <span class="btn-more">Voir détails &rarr;</span>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FENÊTRE MODALE DE DESCRIPTION DES SERVICES -->
+    <div class="modal-overlay" id="serviceModal" onclick="closeOnOverlay(event, 'serviceModal')">
+        <div class="modal-card">
+            <span class="modal-close" onclick="closeModal('serviceModal')">&times;</span>
+            <div class="modal-img-container">
+                <img id="serviceImage" src="" alt="Image de service">
+            </div>
+            <div class="modal-body">
+                <h3 class="modal-title" id="serviceTitle">Titre du Service</h3>
+                <p class="modal-description" id="serviceDescription">Description du service...</p>
+                <button class="btn-modal-close" onclick="closeModal('serviceModal')">Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- FENÊTRE MODALE DU FORMULAIRE DE RÉSERVATION -->
+    <div class="modal-overlay" id="bookingModal" onclick="closeOnOverlay(event, 'bookingModal')">
+        <div class="modal-card">
+            <span class="modal-close" onclick="closeModal('bookingModal')">&times;</span>
+            <div class="modal-body">
+                <h3 class="modal-title" style="color: var(--gold);"><i class="fa-solid fa-calendar-check"></i> Réservation</h3>
+                <p class="modal-description">Remplissez le formulaire ci-dessous pour réserver votre séjour d'exception.</p>
+                
+                <form class="booking-form" onsubmit="handleBookingSubmit(event)">
+                    <div class="form-group">
+                        <label>Nom complet</label>
+                        <input type="text" placeholder="Ex: Jean Dupont" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Adresse E-mail</label>
+                        <input type="email" placeholder="Ex: jean.dupont@email.com" required>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Arrivée</label>
+                            <input type="date" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Départ</label>
+                            <input type="date" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Hébergement</label>
+                            <select>
+                                <option>Chambre Supérieure</option>
+                                <option>Suite Deluxe</option>
+                                <option>Chambre Exécutive</option>
+                                <option>Suite Penthouse</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Personnes</label>
+                            <select>
+                                <option>1 Adulte</option>
+                                <option>2 Adultes</option>
+                                <option>3+ Personnes</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-actions">
+                        <button type="button" class="btn-modal-close" onclick="closeModal('bookingModal')">Fermer</button>
+                        <button type="submit" class="btn-gold">Confirmer la réservation</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Effet Navbar au Scroll
+        window.addEventListener('scroll', function() {
+            const header = document.querySelector('header');
+            if (window.scrollY > 50) {
+                header.style.background = 'rgba(15, 17, 21, 0.98)';
+            } else {
+                header.style.background = 'rgba(15, 17, 21, 0.9)';
+            }
+        });
+
+        // Menu Burger Mobile
+        const headerEl = document.querySelector('header');
+        const btnToggle = document.querySelector('.menu-toggle');
+        
+        function setMenuOpen(open) {
+            headerEl.classList.toggle('menu-open', open);
+            btnToggle.setAttribute('aria-expanded', open);
+        }
+        
+        btnToggle.addEventListener('click', () => {
+            setMenuOpen(!headerEl.classList.contains('menu-open'));
+        });
+        
+        headerEl.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => setMenuOpen(false));
+        });
+
+        // Modale des Services
+        function openServiceModal(title, imgSrc, description) {
+            document.getElementById('serviceTitle').innerText = title;
+            document.getElementById('serviceImage').src = imgSrc;
+            document.getElementById('serviceDescription').innerText = description;
+            document.getElementById('serviceModal').classList.add('active');
+        }
+
+        // Modale de Réservation
+        function openBookingModal() {
+            document.getElementById('bookingModal').classList.add('active');
+        }
+
+        // Fermeture générique des modales
+        function closeModal(modalId) {
+            document.getElementById(modalId).classList.remove('active');
+        }
+
+        function closeOnOverlay(event, modalId) {
+            if (event.target.id === modalId) {
+                closeModal(modalId);
+            }
+        }
+
+        // Action lors de la soumission du formulaire
+        function handleBookingSubmit(event) {
+            event.preventDefault();
+            alert("Merci ! Votre demande de réservation a été envoyée avec succès.");
+            closeModal('bookingModal');
+        }
+    </script>
+</body>
+</html>

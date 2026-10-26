@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Séjour de Rêve à Majunga - Hôtels & Resorts</title>
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #f9844a; 
+            --primary-hover: #e06d32;
+            --secondary: #0077b6; 
+            --accent: #00b4d8; 
+            --bg-light: #f8f9fa;
+            --text-dark: #1d2d44;
+            --text-muted: #6c757d;
+            --white: #ffffff;
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            --radius: 16px;
+            --majh-primary: #009688;
+            --majh-dark: #1e293b;
+            --majh-muted: #475569;
+            --majh-light-bg: #f8fafc;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        html { 
+            -webkit-text-size-adjust: 100%; 
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+        }
+
+        a {
+            text-decoration: none;
+            font-family: 'Poppins', sans-serif;
+            color: white;
+            font-size: 13px;
+        }
+
+        /* --- BARRE DE NAVIGATION UNIFORME --- */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.2rem 5%;
+            background-color: rgba(15, 23, 42, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.25);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            gap: 20px;
+            width: 100%;
+        }
+
+        .logo {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--secondary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .logo span {
+            color: orangered;
+        }
+
+        .logo a {
+            color: #ffffff;
+            font-size: 22px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .fa-house {
+            color: var(--white);
+            font-size: 22px;
+            transition: color 0.3s ease;
+        }
+
+        .logo a:hover .fa-house {
+            color: var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--white);
+            margin: 2px;
+            font-weight: 500;
+            font-family: 'Poppins', sans-serif;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover, 
+        .nav-links a.active {
+            background-color: var(--majh-primary);
+            color: white;
+            font-weight: 500;
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 50px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-hover);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: orange;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO SECTION --- */
+        .hero {
+            position: relative;
+            height: 60vh;
+            background: linear-gradient(rgba(76, 82, 87, 0.7), rgba(0, 0, 0, 0.5)), url('fdh.png') center/cover no-repeat;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -40px auto 60px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 20px 30px;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+
+        .filter-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .filter-options {
+            display: flex;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            background: #eef2f5;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 20px;
+            color: var(--text-dark);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn.active, .filter-btn:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .hotel-card {
+            background: white;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.4s ease, opacity 0.4s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            opacity: 1;
+            transform: scale(1);
+        }
+
+        .hotel-card.hide {
+            display: none;
+            opacity: 0;
+            transform: scale(0.9);
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.12);
+        }
+
+        .card-image {
+            position: relative;
+            height: 220px;
+            overflow: hidden;
+        }
+
+        .card-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hotel-card:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
+            color: var(--primary);
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: bold;
+            backdrop-filter: blur(4px);
+        }
+
+        .card-content {
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+        }
+
+        .stars {
+            color: #ffb703;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .hotel-title {
+            font-size: 1.35rem;
+            color: var(--text-dark);
+            margin-bottom: 10px;
+        }
+
+        .hotel-desc {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+            flex-grow: 1;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid #edf2f7;
+            padding-top: 15px;
+        }
+
+        .price {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 400;
+        }
+
+        .btn-book {
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 0.85rem;
+        }
+
+        .btn-book:hover {
+            background-color: #bc8a5f;
+        }
+
+        .no-results {
+            display: none;
+            text-align: center;
+            grid-column: 1 / -1;
+            padding: 40px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            color: var(--text-muted);
+            font-size: 1.1rem;
+        }
+
+        footer {
+            background-color: rgb(34, 134, 151);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            font-size: 0.9rem;
+        }
+
+        /* --- BOUTON BURGER --- */
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            border: 0;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.15);
+            cursor: pointer;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 20px;
+            height: 2px;
+            border-radius: 2px;
+            background: #fff;
+            transition: transform 0.25s ease, opacity 0.2s ease;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+        .menu-toggle:focus-visible,
+        .navbar a:focus-visible,
+        .btn:focus-visible,
+        summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+        @keyframes menuIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to   { opacity: 1; transform: none; }
+        }
+
+        /* =====================================================
+           RESPONSIVE MOBILE / TABLETTE
+           ===================================================== */
+        @media (max-width: 900px) {
+            .navbar {
+                flex-wrap: wrap;
+                padding: 0.7rem 1rem;
+                gap: 0;
+            }
+            .logo { order: 1; font-size: 1.3rem; }
+            .menu-toggle { display: inline-flex; order: 2; }
+
+            .nav-links, .nav-cta { display: none; flex-basis: 100%; }
+            .nav-links { order: 3; flex-direction: column; gap: 6px; padding-top: 0.75rem; align-items: stretch; }
+            .nav-cta   { order: 4; padding: 0.75rem 0 0.4rem; }
+
+            .navbar.menu-open { 
+                max-height: 100vh; 
+                max-height: 100dvh; 
+                overflow-y: auto; 
+                background-color: rgba(15, 23, 42, 0.96) !important; 
+            }
+
+            .navbar.menu-open .nav-links { display: flex; animation: menuIn 0.22s ease-out; }
+            .navbar.menu-open .nav-cta   { display: block; animation: menuIn 0.22s ease-out; }
+
+            .navbar .nav-links a {
+                display: block;
+                margin: 0;
+                padding: 0.85rem 1rem;
+                font-size: 1rem;
+                text-align: left;
+                border-radius: 12px;
+                color: #ffffff !important;
+                background-color: rgba(255, 255, 255, 0.08);
+            }
+
+            .navbar .nav-links a.active,
+            .navbar .nav-links a:hover {
+                background-color: var(--majh-primary) !important;
+                color: #ffffff !important;
+            }
+
+            .navbar .nav-cta .btn {
+                display: block;
+                width: 100%;
+                padding: 0.9rem 1rem;
+                font-size: 1rem;
+                text-align: center;
+            }
+            
+            .filter-bar {
+                flex-direction: column;
+                align-items: stretch;
+            }
+            .filter-options {
+                justify-content: space-between;
+            }
+            .filter-btn {
+                flex: 1;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="navbar">
+        <div class="logo">
+           <a href="index.html"><i class="fa-solid fa-house"></i></a>
+            <span>Mahajanga</span>Tourisme
+        </div>
+        <button class="menu-toggle" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="menu">
+            <span></span><span></span><span></span>
+        </button>
+        <nav class="nav-links" id="menu">
+            <a href="chindex.html">Accueil</a>
+            <a href="chdecouv.html">Découvrir</a>
+            <a href="chmakethotel.html" class="active">Où Dormir</a>
+            <a href="chcircuit.html">Circuits</a>
+            <a href="chinfopratique.html">Infos Pratiques</a>
+            <a href="chcontact.html">Contact</a>
+        </nav>
+        <div class="nav-cta">
+            <a href="chguide.html" class="btn btn-primary">Réserver un guide</a>
+        </div>
+    </header>
+
+    <div class="hero"></div>
+
+    <div class="container">
+        <!-- Barre de filtres -->
+        <div class="filter-bar">
+            <span class="filter-title">Filtrer par catégorie :</span>
+            <div class="filter-options">
+                <button class="filter-btn active" data-category="all">Tous</button>
+                <button class="filter-btn" data-category="4">4 Étoiles</button>
+                <button class="filter-btn" data-category="3">3 Étoiles</button>
+            </div>
+        </div>
+
+        <!-- Grille d'hôtels -->
+        <div class="grid">
+            <!-- Hôtel 1 (4 Étoiles) -->
+            <div class="hotel-card" data-category="4">
+                <div class="card-image">
+                    <img src="bb1.jpg" alt="Chambre de luxe vue mer">
+                    <span class="badge">4 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★★☆</div>
+                    <h2 class="hotel-title">Baobab Tree Hotel & Spa</h2>
+                    <p class="hotel-desc">Établissement haut de gamme situé sur la Corniche offrant une vue imprenable sur l'océan, un spa complet et des chambres luxueuses.</p>
+                    <div class="card-footer">
+                        <div class="price">520 932 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 2 (4 Étoiles) -->
+            <div class="hotel-card" data-category="4">
+                <div class="card-image">
+                    <img src="ants.jpg" alt="Piscine tropicale">
+                    <span class="badge">4 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★★☆</div>
+                    <h2 class="hotel-title">Hôtel Antsanitia Resort</h2>
+                    <p class="hotel-desc">Un complexe écotouristique d'exception au cœur de la nature avec piscine extérieure, plage privée et bungalows spacieux.</p>
+                    <div class="card-footer">
+                        <div class="price">219 077 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 6 (4 Étoiles) -->
+            <div class="hotel-card" data-category="4">
+                <div class="card-image">
+                    <img src="hotel-restaurant-vatobe.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">4 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★★☆</div>
+                    <h2 class="hotel-title">Vatobe</h2>
+                    <p class="hotel-desc">Un établissement situé le long du Boulevard Marcoz Antsahavaky, en face de l'ancienne station Solima à Mahajanga</p>
+                    <div class="card-footer">
+                        <div class="price">180 000 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 7 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="Saarahotel.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">Saara Hotel</h2>
+                    <p class="hotel-desc">Hôtel simple proposant des bungalows sobres, un restaurant, un bar, une piscine extérieure et une aire de jeux.</p>
+                    <div class="card-footer">
+                        <div class="price">149 355 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 8 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="Newpark.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">New Park Resort - Majunga</h2>
+                    <p class="hotel-desc">Chambres claires, certaines avec terrasse, dans complexe fonctionnel offrant restaurant et piscine extérieure.</p>
+                    <div class="card-footer">
+                        <div class="price">142 057 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 9 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="Illo.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">Villa Ilo - Mahajanga</h2>
+                    <p class="hotel-desc">Une résidence de standing / maison d'hôtes privée avec vue sur mer, piscine extérieure et jardin situé du côté de mahavoky / amborovy.</p>
+                    <div class="card-footer">
+                        <div class="price">250 000 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 3 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="cc1.jpg" alt="Restaurant terrasse au coucher du soleil">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">Coco Lodge Majunga</h2>
+                    <p class="hotel-desc">Hôtel-restaurant gourmand situé au centre-ville, réputé pour sa piscine, son ambiance conviviale et sa cuisine raffinée.</p>
+                    <div class="card-footer">
+                        <div class="price">215 382 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 4 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="karibo.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">Karibu Lodge & Wellness</h2>
+                    <p class="hotel-desc">Un havre de paix proposant des suites avec terrasse, un jardin tropical relaxant et un espace bien-être chaleureux.</p>
+                    <div class="card-footer">
+                        <div class="price">180 000 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Hôtel 5 (3 Étoiles) -->
+            <div class="hotel-card" data-category="3">
+                <div class="card-image">
+                    <img src="roche.jpg" alt="Espace Spa & Bien-être">
+                    <span class="badge">3 Étoiles</span>
+                </div>
+                <div class="card-content">
+                    <div class="stars">★★★☆☆</div>
+                    <h2 class="hotel-title">Hôtel les roches rouges</h2>
+                    <p class="hotel-desc">Situé au bord du canal de Mozambique sur la corniche, un hôtel avec piscine offrant une vue panoramique sur la mer et un restaurant spécialisé en fruits de mer.</p>
+                    <div class="card-footer">
+                        <div class="price">185 000 Ar <span>/ nuit</span></div>
+                        <a href="masoviahotel.html" class="btn-book">Réserver</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message d'alerte si aucun résultat -->
+            <div class="no-results" id="noResults">
+                Aucun hôtel ne correspond actuellement à cette catégorie à Majunga.
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Mahajanga Tourisme. Tous droits réservés.</p>
+    </footer>
+
+    <!-- Script JavaScript pour le filtrage dynamique et le menu burger -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Filtrage des hôtels
+            const buttons = document.querySelectorAll('.filter-btn');
+            const cards = document.querySelectorAll('.hotel-card');
+            const noResults = document.getElementById('noResults');
+
+            buttons.forEach(button => {
+                button.addEventListener('click', () => {
+                    buttons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    const selectedCategory = button.getAttribute('data-category');
+                    let visibleCount = 0;
+
+                    cards.forEach(card => {
+                        const cardCategory = card.getAttribute('data-category');
+
+                        if (selectedCategory === 'all' || cardCategory === selectedCategory) {
+                            card.classList.remove('hide');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hide');
+                        }
+                    });
+
+                    if (visibleCount === 0) {
+                        noResults.style.display = 'block';
+                    } else {
+                        noResults.style.display = 'none';
+                    }
+                });
+            });
+
+            // Gestion du menu burger mobile
+            const header = document.querySelector('.navbar');
+            const btn = header.querySelector('.menu-toggle');
+            
+            function setOpen(open) {
+                header.classList.toggle('menu-open', open);
+                btn.setAttribute('aria-expanded', open);
+                btn.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+            }
+            
+            btn.addEventListener('click', () => {
+                setOpen(!header.classList.contains('menu-open'));
+            });
+            
+            header.querySelectorAll('.nav-links a').forEach(a => {
+                a.addEventListener('click', () => setOpen(false));
+            });
+            
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape') setOpen(false);
+            });
+            
+            window.matchMedia('(min-width: 901px)').addEventListener('change', (e) => {
+                if (e.matches) setOpen(false);
+            });
+        });
+    </script>
+</body>
+</html>
